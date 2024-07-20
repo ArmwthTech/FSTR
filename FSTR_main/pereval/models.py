@@ -2,12 +2,13 @@ from django.db import models
 from .services import get_path_upload_photo
 from django.core.validators import RegexValidator
 # Create your models here.
-
+check_number = RegexValidator(regex=r'^\+\d{11}$',
+                              message="Номер телефона должен быть введён в следующем формате: '+78005553535' 11 цифр.")
 class MyUser(models.Model):
     name = models.CharField(max_length=150)
     fam = models.CharField(max_length=150)
     otc = models.CharField(max_length=150)
-    phone = models.CharField(max_length=150)
+    phone = models.CharField(validators=[check_number], max_length=15, blank=True)
     email = models.CharField(max_length=150)
     objects = models.Manager()
 
